@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصحف إلكتروني - صدقة جارية لروح عمر</title>
+    <title>مصحف إلكتروني - صدقة جارية لروح عمر محمود</title>
     <!-- استدعاء خطوط مخصصة للمصحف الشريف والقراءة المريحة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,13 +16,27 @@
             --primary-color: #2c4c38; /* أخضر مصاحف ملكي هادئ */
             --text-color: #1a1a1a; /* أسود مريح للقراءة العميقة */
             --accent-color: #c4a46c; /* لون ذهبي إسلامي هادئ للأرقام والفواصل */
+            --btn-bg: #2c4c38;
+            --btn-text: white;
+            --bg-pattern: radial-gradient(#f2ede4 0.5px, transparent 0.5px), radial-gradient(#f2ede4 0.5px, #e9e2d5 0.5px);
+        }
+
+        /* ستايل مخصص للوضع الليلي */
+        [data-theme="dark"] {
+            --bg-color: #121212; /* أسود غامق مريح للعين */
+            --card-bg: #1e1e1e; /* رمادي غامق جداً للحاوية */
+            --primary-color: #81c784; /* أخضر فاتح وهادئ في الظلام */
+            --text-color: #e0e0e0; /* أبيض مائل للرمادي لتقليل السطوع */
+            --accent-color: #ffd54f; /* ذهبي مضيء خفيف للأرقام */
+            --btn-bg: #333333;
+            --btn-text: #e0e0e0;
+            --bg-pattern: radial-gradient(#121212 0.5px, transparent 0.5px), radial-gradient(#121212 0.5px, #1a1a1a 0.5px);
         }
 
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-color);
-            /* تأثير خلفية ورقية خفيفة لمنح إحساس المصحف الحقيقي */
-            background-image: radial-gradient(var(--bg-color) 0.5px, transparent 0.5px), radial-gradient(var(--bg-color) 0.5px, #e9e2d5 0.5px);
+            background-image: var(--bg-pattern);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
             margin: 0;
@@ -31,6 +45,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* حاوية الشاشات */
@@ -40,11 +55,12 @@
             background: var(--card-bg);
             padding: 45px 35px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(44, 76, 56, 0.05);
-            border: 1px solid #e3dac9;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(227, 218, 201, 0.5);
             text-align: center;
             box-sizing: border-box;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         /* توسيع الحاوية عند عرض المصحف لتشبه الصورة */
@@ -53,36 +69,55 @@
             padding: 50px 40px;
         }
 
-        h1 { font-size: 2rem; color: var(--primary-color); margin-top: 0; font-weight: 700; }
-        h2 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 20px; }
-        p { color: var(--text-color); font-size: 1.1rem; line-height: 1.8; }
+        h1 { font-size: 2rem; color: var(--primary-color); margin-top: 0; font-weight: 700; transition: color 0.3s; }
+        h2 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 20px; transition: color 0.3s; }
+        p { color: var(--text-color); font-size: 1.1rem; line-height: 1.8; transition: color 0.3s; }
 
         /* الأزرار الاحترافية */
         .btn {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             padding: 14px 40px;
             font-size: 1.1rem;
             border-radius: 30px;
             cursor: pointer;
             margin-top: 30px;
-            box-shadow: 0 4px 15px rgba(44, 76, 56, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             font-family: 'Cairo', sans-serif;
             font-weight: bold;
         }
         .btn:hover {
-            background-color: #1e3527;
+            opacity: 0.9;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(44, 76, 56, 0.25);
+        }
+
+        /* زرار السورة التالية الخاص بصفحة المصحف */
+        .next-btn-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .surah-text { 
+            font-family: 'Amiri', serif; /* خط أميري مخصص للمصحف والتشكيل */
+            font-size: 28px; 
+            line-height: 2.5; 
+            text-align: justify; 
+            color: var(--text-color); 
+            word-spacing: 5px;
+            padding: 10px 20px;
+            transition: color 0.3s, font-size 0.2s ease;
         }
 
         /* نصوص الأدعية */
         .prayer-text {
             font-size: 1.25rem;
-            color: #3a3a3a;
-            background: #fbf9f3;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0.02);
             padding: 25px;
             border-radius: 12px;
             border-right: 4px solid var(--accent-color);
@@ -96,21 +131,12 @@
             font-size: 2.6rem; 
             font-weight: bold; 
             color: var(--primary-color); 
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             letter-spacing: 1px;
-        }
-        
-        .surah-text { 
-            font-family: 'Amiri', serif; /* خط أميري مخصص للمصحف والتشكيل */
-            font-size: 28px; 
-            line-height: 2.5; 
-            text-align: justify; 
-            color: var(--text-color); 
-            word-spacing: 5px;
-            padding: 10px 20px;
+            transition: color 0.3s;
         }
 
-        /* شكل رقم الآية الدائري والمزخرف مثل الصورة */
+        /* شكل رقم الآية الدائري والمزخرف */
         .ayah-number { 
             color: var(--accent-color); 
             font-weight: bold; 
@@ -118,28 +144,95 @@
             font-size: 24px; 
             font-family: 'Amiri', serif;
             display: inline-block;
+            transition: color 0.3s;
         }
 
-        /* صندوق اختيار السورة المتناسق مع التصميم الجديد */
-        .select-wrapper {
-            margin-bottom: 40px;
+        /* صندوق اختيار السورة والتحكم */
+        .controls-wrapper {
+            margin-bottom: 35px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 1px solid rgba(227, 218, 201, 0.4);
+            padding-bottom: 20px;
         }
+        
+        .select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         .select-box {
-            padding: 10px 25px;
+            padding: 10px 20px;
             font-size: 1rem;
             border-radius: 25px;
-            border: 1px solid #dcd1be;
+            border: 1px solid rgba(220, 209, 190, 0.7);
             background: var(--card-bg);
-            color: var(--primary-color);
+            color: var(--text-color);
             font-family: 'Cairo', sans-serif;
             font-weight: bold;
             cursor: pointer;
             outline: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* شريط الأدوات الصغير */
+        .toolbar {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tool-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(220, 209, 190, 0.7);
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+        
+        .tool-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* عداد الحسنات والسور السفلي */
+        .stats-counter {
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* التنبيه العائم عند النسخ */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c4c38;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            transition: opacity 0.3s ease;
         }
 
         .hidden { display: none; }
@@ -150,34 +243,82 @@
     <!-- الشاشة الأولى: نية القراءة -->
     <div id="step-1" class="box-container">
         <h1>المصحف الإلكتروني</h1>
-        <p style="font-weight: bold; color: var(--primary-color); opacity: 0.9;">صدقة جارية على روح المغفور له بإذن الله: عمر</p>
-        <hr style="border: 0; border-top: 1px solid #e3dac9; margin: 25px 0;">
+        <p style="font-weight: bold; color: var(--primary-color); opacity: 0.9;">صدقة جارية على روح المغفور له بإذن الله: عمر محمود</p>
+        <hr style="border: 0; border-top: 1px solid rgba(223, 218, 201, 0.5); margin: 25px 0;">
         <h2>دعاء نية القراءة</h2>
-        <p class="prayer-text">"اللهم إني نويت قراءة كتابك الكريم، وتلاوة آياته، بنية أن تهب ثواب وأجر هذه القراءة إلى روح صفيّنا وعزيزنا (عمر)، اللهم اجعل كل حرف يقرأ في هذا الموقع نوراً له في قبره، وثقلاً في ميزان حسناته."</p>
+        <p class="prayer-text">"اللهم إني نويت قراءة كتابك الكريم، وتلاوة آياته، بنية أن تهب ثواب وأجر هذه القراءة إلى روح صفيّنا وعزيزنا (عمر محمود)، اللهم اجعل كل حرف يقرأ في هذا الموقع نوراً له في قبره، وثقلاً في ميزان حسناته."</p>
         <button class="btn" onclick="goToStep(2)">التالي</button>
     </div>
 
     <!-- الشاشة الثانية: الدعاء الكبير -->
     <div id="step-2" class="box-container hidden">
         <h2>دعاء للمتوفي</h2>
-        <p class="prayer-text">"اللهم اغفر لـ (عمر) وارحمه، وعافه واعف عنه، وأكرم نزله، ووسع مدخله، واغسله بالماء والثلج والبرد، ونقه من الخطايا كما ينقى الثوب الأبيض من الدنس. اللهم أبدله داراً خيراً من داره، وأهلاً خيراً من أهله، وأدخله الجنة، وأعذه من عذاب القبر ومن عذاب النار. اللهم اجعل قبره روضة من رياض الجنة ولا تجعله حفرة من حفر النيران."</p>
+        <p class="prayer-text">"اللهم اغفر لـ (عمر محمود) وارحمه، وعافه واعف عنه، وأكرم نزله، ووسع مدخله، واغسله بالماء والثلج والبرد، ونقه من الخطايا كما ينقى الثوب الأبيض من الدنس. اللهم أبدله داراً خيراً من داره، وأهلاً خيراً من أهله، وأدخله الجنة، وأعذه من عذاب القبر ومن عذاب النار. اللهم اجعل قبره روضة من رياض الجنة ولا تجعله حفرة من حفر النيران."</p>
         <button class="btn" onclick="goToStep(3)">ابدأ قراءة القرآن</button>
     </div>
 
     <!-- الشاشة الثالثة: المصحف الشريف -->
     <div id="step-3" class="box-container quran-wide hidden">
-        <div class="select-wrapper">
-            <label for="surah-select" style="font-size: 1rem; color: var(--primary-color); font-weight: bold;">انتقل إلى سورة:</label>
-            <select id="surah-select" class="select-box" onchange="changeSurah(this.value)">
-                <!-- السور بتتحمل هنا تلقائياً -->
-            </select>
+        <div class="controls-wrapper">
+            <div class="select-wrapper">
+                <label for="surah-select" style="font-size: 1rem; color: var(--primary-color); font-weight: bold;">انتقل إلى سورة:</label>
+                <select id="surah-select" class="select-box" onchange="changeSurah(this.value)">
+                    <!-- السور بتتحمل هنا تلقائياً -->
+                </select>
+            </div>
+            
+            <!-- شريط الأدوات العلوي المطور -->
+            <div class="toolbar">
+                <button class="tool-btn" onclick="adjustFontSize(2)" title="تكبير الخط">A+</button>
+                <button class="tool-btn" onclick="adjustFontSize(-2)" title="تصغير الخط">A-</button>
+                <button class="tool-btn" id="theme-btn" onclick="toggleTheme()" title="تغيير المظهر">☀️</button>
+            </div>
         </div>
 
         <div id="surah-title" class="surah-name">جاري تحميل السورة...</div>
         <div id="surah-content" class="surah-text"></div>
+
+        <!-- العداد وإجراءات المشاركة التفاعلية -->
+        <div class="stats-counter" id="session-counter">تم قراءة 0 سور في هذه الجلسة. تقبل الله منا ومنكم.</div>
+
+        <div class="next-btn-container">
+            <button id="next-surah-btn" class="btn hidden" onclick="loadNextSurah()">السورة التالية ⬅️</button>
+            <button class="btn" style="background-color: #c4a46c; color: #1a1a1a;" onclick="shareSurah()">🔗 مشاركة السورة كصدقة</button>
+        </div>
     </div>
 
+    <!-- عنصر التنبيه الخفيف عائم للمشاركة -->
+    <div id="toast-msg" class="toast hidden">تم نسخ رابط الصدقة بنجاح وجاهز للمشاركة!</div>
+
     <script>
+        let currentSurahNumber = 1; 
+        let currentFontSize = 28;
+        let readSurahsCount = 0;
+        let viewedSurahs = new Set();
+
+        // 1. إدارة السمات (الوضع الليلي والمنور)
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const themeBtn = document.getElementById('theme-btn');
+            
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.innerText = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = '🌙';
+            }
+        }
+
+        // 2. التحكم بحجم الخط
+        function adjustFontSize(amount) {
+            currentFontSize += amount;
+            if(currentFontSize < 20) currentFontSize = 20; // الحد الأدنى
+            if(currentFontSize > 46) currentFontSize = 46; // الحد الأقصى
+            document.getElementById('surah-content').style.fontSize = currentFontSize + 'px';
+        }
+
+        // 3. التنقل بين شاشات التطبيق وحفظ العلامة المرجعية
         function goToStep(stepNumber) {
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.add('hidden');
@@ -188,10 +329,17 @@
             if(stepNumber === 3) {
                 document.body.style.alignItems = 'flex-start';
                 document.body.style.padding = '50px 0';
+                
+                // استرجاع السورة المحفوظة سابقاً من الـ Bookmark إن وُجدت
+                const savedSurah = localStorage.getItem('quran_bookmark');
+                if(savedSurah) {
+                    currentSurahNumber = parseInt(savedSurah);
+                }
                 initQuranApp(); 
             }
         }
 
+        // 4. بناء وتحميل واجهة السور الشريفة
         function initQuranApp() {
             fetch('https://api.alquran.cloud/v1/surah')
                 .then(response => response.json())
@@ -206,36 +354,53 @@
                         select.appendChild(option);
                     });
                     
-                    loadSurah(1);
+                    loadSurah(currentSurahNumber);
                 })
                 .catch(err => console.error("خطأ في تحميل قائمة السور:", err));
         }
 
         function loadSurah(surahNumber) {
+            currentSurahNumber = parseInt(surahNumber); 
+            
+            // حفظ السورة الحالية تلقائياً لخاصية (العلامة المرجعية)
+            localStorage.setItem('quran_bookmark', currentSurahNumber);
+
             const titleElement = document.getElementById('surah-title');
             const contentElement = document.getElementById('surah-content');
+            const nextBtn = document.getElementById('next-surah-btn');
             
             titleElement.innerText = "جاري تحميل السورة...";
             contentElement.innerText = "";
+            nextBtn.classList.add('hidden'); 
 
-            fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`)
+            document.getElementById('surah-select').value = currentSurahNumber;
+
+            fetch(`https://api.alquran.cloud/v1/surah/${currentSurahNumber}`)
                 .then(response => response.json())
                 .then(data => {
                     const surah = data.data;
                     titleElement.innerText = surah.name;
                     
                     let fullText = '';
-                    
-                    surah.ayahs.forEach((ayah, index) => {
-                        let text = ayah.text;
-                        if (surahNumber !== 1 && surahNumber !== 9 && index === 0) {
-                            text = text.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ", "");
-                        }
-                        // إضافة الرمز القرآني للآيات بشكل منسق وعثماني
-                        fullText += `${text} <span class="ayah-number">﴿${ayah.numberInSurah}﴾</span> `;
+                    surah.ayahs.forEach((ayah) => {
+                        fullText += `${ayah.text} <span class="ayah-number">﴿${ayah.numberInSurah} Bled﴾</span> `;
                     });
                     
+                    // استبدال كود الـ placeholder العشوائي بالقيمة الصحيحة مع الأقواس لضمان عدم تأثر السور بالمسح القديم
+                    fullText = fullText.replace(/Bled/g, "");
                     contentElement.innerHTML = fullText;
+
+                    if (currentSurahNumber < 114) {
+                        nextBtn.classList.remove('hidden');
+                    }
+
+                    // تحديث عداد السور التفاعلي في الجلسة الحالية
+                    if(!viewedSurahs.has(currentSurahNumber)) {
+                        viewedSurahs.add(currentSurahNumber);
+                        readSurahsCount = viewedSurahs.size;
+                        document.getElementById('session-counter').innerText = `لقد تصفحت ${readSurahsCount} سورة في هذه الجلسة، كتب الله أجرها ونور بها قبر عمر محمود.`;
+                    }
+
                     window.scrollTo(0, 0); 
                 })
                 .catch(err => {
@@ -246,6 +411,28 @@
 
         function changeSurah(surahNumber) {
             loadSurah(surahNumber);
+        }
+
+        function loadNextSurah() {
+            if (currentSurahNumber < 114) {
+                loadSurah(currentSurahNumber + 1);
+            }
+        }
+
+        // 5. دالة مشاركة الصدقة الجارية والنسخ الذكي
+        function shareSurah() {
+            const surahName = document.getElementById('surah-select').options[document.getElementById('surah-select').selectedIndex].text;
+            const shareText = `شاركونا أجر تلاوة سورة (${surahName}) من المصحف الإلكتروني كصدقة جارية ممتدة على روح المغفور له بإذن الله (عمر محمود) وغفر له ولنا جميعاً: ${window.location.href}`;
+            
+            navigator.clipboard.writeText(shareText).then(() => {
+                const toast = document.getElementById('toast-msg');
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3500);
+            }).catch(err => {
+                console.error("فشل نسخ النص المخصص للمشاركة", err);
+            });
         }
     </script>
 </body>
